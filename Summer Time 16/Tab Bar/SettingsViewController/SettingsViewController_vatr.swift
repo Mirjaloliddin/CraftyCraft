@@ -172,7 +172,7 @@ func xCcfO() {
         Gradient.setupGradient(view: view)
         Gradient.setupGradient(view: termsContaienr)
         Gradient.setupGradient(view: privacyContainer)
-        Gradient.setupGradient(view: doneView)
+        Gradient.setupButtonGradient(view: doneView)
 //        backBtn.backgroundColor = .green
         Gradient.setupGradient(view: backBtn)
         }

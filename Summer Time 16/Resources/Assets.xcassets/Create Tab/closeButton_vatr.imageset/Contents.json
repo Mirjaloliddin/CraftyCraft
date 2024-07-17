@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Set Icons_ewwq.png",
+      "filename" : "Image.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Set Icons@2x_ewwq.png",
+      "filename" : "Image 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Set Icons@3x_ewwq.png",
+      "filename" : "Image 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -12,21 +12,13 @@ class DownloadContnetViewController_vatr: UIViewController {
     
     override func viewDidLoad() {
 
-func DsqWs() {
-        var kcEpXw: Int = 4
-        if kcEpXw > 4 {
-            if kcEpXw < 4 {
-                kcEpXw = 4
-    }
 
-  }
-}
   
         super.viewDidLoad()
         configurateInstallViews_vatr()
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
-       
+        Gradient.setupButtonGradient(view: view)
     }
     
     private func configurateInstallViews_vatr() {

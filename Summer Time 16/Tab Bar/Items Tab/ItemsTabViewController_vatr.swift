@@ -20,6 +20,15 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
     
     @IBOutlet weak var dropDown: DropDown_vatr!
     
+    @IBOutlet weak var btnCollectionView: UICollectionView!
+    
+    var btnItems = [
+    ButtonsType(text: "All", isSelect: true),
+    ButtonsType(text: "Fovurite", isSelect: false),
+    ButtonsType(text: "Popular", isSelect: false),
+    ]
+    
+    
     @IBOutlet weak var emptyLabel: UILabel!
     
     //    @IBOutlet private weak var mapsPageControllerLabel: UILabel!
@@ -142,8 +151,7 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         //      contentFilterView.updateButtons(newButtons: buttons, selectedIndex: selectedIndex)
         
         // MARK: 2.0
-        currentFilterButtons = buttons
-        dropDown.optionArray = currentFilterButtons.map(\.label)
+        
     }
     
     
@@ -168,7 +176,7 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         backBtn.layer.cornerRadius = 5
         navigationController?.setNavigationBarHidden(true, animated: false)
         setupCollectionView_vatr()
-        setupViews_vatr()
+        
         setupSearchBar_vatr2()
         setupAppearance()
         tabsPageControllMode = .addons
@@ -218,7 +226,7 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         
         
         super.viewWillDisappear(animated)
-        dropDown.hideList_vatr()
+//        dropDown.hideList_vatr()
         unregisterFromKeyboardNotifications_vatr()
     }
     
@@ -386,15 +394,32 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         
         let selectedFilterNames = [name]
         
-        filteredPageModel = pageModel.compactMap { pageMode in
-            if selectedFilterNames.contains(pageMode.filterCategory) {
-                if navbarSearchMode, let searchText = searchBarView.searchTextField.text, !searchText.isEmpty {
-                    return pageMode.name.containsCaseInsesetive_vatr(searchText) ? pageMode : nil
+        if name == "All"{
+            filteredPageModel = pageModel
+        }else if name == "Fovurite" {
+            filteredPageModel = pageModel.compactMap { pageMode in
+                if pageMode.isFavorite == true {
+                    if navbarSearchMode, let searchText = searchBarView.searchTextField.text, !searchText.isEmpty {
+                        return pageMode.name.containsCaseInsesetive_vatr(searchText) ? pageMode : nil
+                    } else {
+                        return pageMode
+                    }
                 } else {
-                    return pageMode
+                    return nil
                 }
-            } else {
-                return nil
+            }
+        }else{
+            
+            filteredPageModel = pageModel.compactMap { pageMode in
+                if selectedFilterNames.contains(pageMode.filterCategory) {
+                    if navbarSearchMode, let searchText = searchBarView.searchTextField.text, !searchText.isEmpty {
+                        return pageMode.name.containsCaseInsesetive_vatr(searchText) ? pageMode : nil
+                    } else {
+                        return pageMode
+                    }
+                } else {
+                    return nil
+                }
             }
         }
         contentCollectionView.reloadData()
@@ -412,9 +437,11 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         
         let nib = UINib(nibName: cellId, bundle: nil)
         contentCollectionView.register(nib, forCellWithReuseIdentifier: cellId)
-        contentCollectionView.setCollectionViewLayout(.makeColumnsLayout(), animated: false)
+//        contentCollectionView.setCollectionViewLayout(.makeColumnsLayout(), animated: false)
         contentCollectionView.contentInset.bottom = 40
-
+        btnCollectionView.delegate = self
+        btnCollectionView.dataSource = self
+        btnCollectionView.register(UINib(nibName: "BtnCollectionCell", bundle: nil), forCellWithReuseIdentifier: "BtnCollectionCell")
     }
     
     private func setupAppearance() {
@@ -496,58 +523,7 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         }
     }
     
-    private func setupViews_vatr() {
-        var cpvatr_gibolaqe: Int {
-            return 73
-        }
-        
-        
-        
-        //        segmentControl.segments = LabelSegment.segments(withTitles: ["SKINS", "MAPS", "ADDONS"],
-        //                                                         normalFont: UIFont.kufamFont(.semiBold, size: 14), normalTextColor: UIColor.appBlack, selectedBackgroundColor: .appBlack,
-        //                                                         selectedFont: UIFont.kufamFont(.semiBold, size: 14),
-        //                                                         selectedTextColor: .white)
-        
-        //        segmentControl.addTarget(self, action: #selector(segmentValueChanged(_:)), for: .valueChanged)
-        //
-        
-        dropDown.optionArray = ["All"]
-        dropDown.selectedIndex = 0
-        //        dropDown.cornerRadius = 12
-        //        dropDown.font = .kufamFont(.regural, size: 16)
-        //        dropDown.borderColor = UIColor(red: 0.89, green: 0.89, blue: 0.89, alpha: 1)
-        //        dropDown.borderWidth = 1
-        //        dropDown.backgroundColor = UIColor(red: 0.96, green: 0.95, blue: 0.97, alpha: 1)
-        dropDown.didSelect_vatr { [weak self] _, index, _ in
-            guard let self else { return }
-            
-//            if self.dropDown.payedOptions.contains(where: { $0 == index }) {
-//                dropDown.selectOption(at: dropDown.lastSelectedIndex!)
-//                
-//                navigationController?.showPaywall_vatr(for: .unlockContentProduct) {
-//                    self.dropDown.payedOptions.removeAll(where: { $0 == index })
-//                    self.dropDown.selectedIndex = index
-//                    self.flushSearch()
-//                    self.applyContent(filter: self.currentFilterButtons[index].filter)
-//                }
-//                return
-//            }
-            
-            flushSearch()
-            applyContent(filter: currentFilterButtons[index].filter)
-        }
-        
-        //        let responderButtons = createResponderButtons(for: [skinsButtonRoundedView, addonsButtonRoundedView, mapsButtonRoundedView])
-        //
-        //        for (index, button) in responderButtons.enumerated() {
-        //            button.addTarget(self, action: #selector(tabButtonTapped(_:)), for: .touchUpInside)
-        //            button.tag = index
-        //            view.addSubview(button)
-        //            setupConstraints(for: button, matching: roundedViewContainers[index])
-        //        }
-        
-        // setupContentFilter()
-    }
+    
     
     //    @objc
     //    private func segmentValueChanged(_ sender: BetterSegmentedControl) {
@@ -810,7 +786,21 @@ class ItemsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
 
 extension ItemsTabViewController_vatr: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if collectionView == btnCollectionView {
+            
+            for i in 0..<btnItems.count  {
+                if i == indexPath.item {
+                    btnItems[i].isSelect = true
+                    setUpFilter(name: btnItems[i].text)
+                    
+                }else {
+                    btnItems[i].isSelect = false
+                }
+            }
+            btnCollectionView.reloadData()
+            
+            
+        }else {
         
         
         let contentViewController = ContentViewController_vatr(model: filteredPageModel[indexPath.item], mode: .addons)
@@ -820,15 +810,29 @@ extension ItemsTabViewController_vatr: UICollectionViewDelegate {
         }
         presentFullScreenViewController_vatr(contentViewController)
     }
+    }
 }
 
 extension ItemsTabViewController_vatr: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        if collectionView == btnCollectionView {
+            return btnItems.count
+        }
         return filteredPageModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+       
+        
+        if collectionView == btnCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BtnCollectionCell", for: indexPath) as? BtnCollectionCell else {return UICollectionViewCell()}
+            cell.updateCell(item: btnItems[indexPath.item])
+            return cell
+        }
+        
+        
+        
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ContentCollectionViewCell_vatr
         
@@ -882,16 +886,7 @@ extension ItemsTabViewController_vatr: UICollectionViewDataSource {
         
         //        cell.newIcon.isHidden = !cellModel.isContentNew
         
-        var categoryImage: UIImage {
-            switch tabsPageControllMode {
-            case .skins:
-                return UIImage(named: "skins_icon_button_vatr") ?? UIImage()
-            case .addons:
-                return UIImage(named: "addons_icon_button_vatr") ?? UIImage()
-            case .maps:
-                return UIImage(named: "maps_icon_button_vatr") ?? UIImage()
-            }
-        }
+        
         
         if tabsPageControllMode == .skins {
             cell.contentImageView.contentMode = .scaleAspectFit
@@ -900,24 +895,32 @@ extension ItemsTabViewController_vatr: UICollectionViewDataSource {
             //         cell.contentImageView.contentMode = .scaleToFill
         }
         
-        cell.categoryImageView.image = categoryImage
+        if filteredPageModel[indexPath.item].isFavorite {
+            cell.categoryImageView.image = UIImage(named: "unlike_cell")
+        }else {
+            cell.categoryImageView.image = UIImage(named: "like_cell")
+        }
         
         return cell
     }
 }
 
-//extension ItemsTabViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension ItemsTabViewController_vatr: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-////        let cellWidth = collectionView.frame.size.width / 2 - 5
-////        let cellHeight = cellWidth * 1.15
-//
-//        return CGSize(width: 169, height: 163)
-//    }
-//
-//
-//
-//}
+        if collectionView == btnCollectionView {
+            return CGSize(width: 107, height: 44)
+        }
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            return CGSize(width: (collectionView.frame.width - 24)/3, height: (collectionView.frame.width - 48)/5)
+        }else {
+            return CGSize(width: (collectionView.frame.width - 16)/2, height: (collectionView.frame.height - 36)/2.9 )
+        }
+    }
+
+
+
+}
 
 
 //MARK: KeyboardStateDelegate

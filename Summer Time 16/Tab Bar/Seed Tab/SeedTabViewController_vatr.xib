@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SeedTabViewController_vatr" customModule="Summer_Time_16" customModuleProvider="target">
             <connections>
+                <outlet property="btnCollectionView" destination="cam-2O-24C" id="fs0-pt-LM5"/>
                 <outlet property="collectionView" destination="Erk-Ue-Tlz" id="hFQ-ov-Knf"/>
                 <outlet property="emptyLabel" destination="ym9-d1-m1K" id="x61-JT-cqh"/>
                 <outlet property="navigationBarContainerView" destination="RP9-ab-gd5" id="SAr-Gy-syx"/>
@@ -103,7 +104,7 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Erk-Ue-Tlz">
-                    <rect key="frame" x="20" y="181" width="353" height="637"/>
+                    <rect key="frame" x="20" y="237" width="353" height="581"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="73N-G5-moK">
                         <size key="itemSize" width="128" height="128"/>
@@ -118,6 +119,29 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQU-dV-D7S">
+                    <rect key="frame" x="18" y="175" width="357" height="46"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cam-2O-24C">
+                            <rect key="frame" x="0.0" y="0.0" width="357" height="46"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IOk-D2-4Bc">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="cam-2O-24C" secondAttribute="trailing" id="AzO-TE-nFq"/>
+                        <constraint firstItem="cam-2O-24C" firstAttribute="leading" secondItem="nQU-dV-D7S" secondAttribute="leading" id="FLz-YO-ljQ"/>
+                        <constraint firstItem="cam-2O-24C" firstAttribute="top" secondItem="nQU-dV-D7S" secondAttribute="top" id="Wbn-s1-Ilh"/>
+                        <constraint firstAttribute="height" constant="46" id="Yg4-LG-Ue4"/>
+                        <constraint firstAttribute="bottom" secondItem="cam-2O-24C" secondAttribute="bottom" id="w1k-ba-r32"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vw3-hw-cdh"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -127,13 +151,15 @@
                 <constraint firstItem="6v4-dk-P0z" firstAttribute="trailing" secondItem="vw3-hw-cdh" secondAttribute="trailing" id="1TT-el-OkE"/>
                 <constraint firstItem="ym9-d1-m1K" firstAttribute="leading" secondItem="vw3-hw-cdh" secondAttribute="leading" constant="40" id="1UH-KU-1Ry"/>
                 <constraint firstItem="RP9-ab-gd5" firstAttribute="leading" secondItem="vw3-hw-cdh" secondAttribute="leading" id="4OU-w9-fic"/>
-                <constraint firstItem="Erk-Ue-Tlz" firstAttribute="top" secondItem="Bg2-FP-n9W" secondAttribute="bottom" constant="16" id="6iQ-2v-NO6"/>
+                <constraint firstItem="nQU-dV-D7S" firstAttribute="leading" secondItem="vw3-hw-cdh" secondAttribute="leading" constant="18" id="6QT-cv-VSI"/>
                 <constraint firstItem="X4b-3v-k7k" firstAttribute="centerY" secondItem="vw3-hw-cdh" secondAttribute="centerY" id="A3S-Gy-7PS"/>
                 <constraint firstItem="Bg2-FP-n9W" firstAttribute="leading" secondItem="vw3-hw-cdh" secondAttribute="leading" constant="18" id="ATR-ra-mnw"/>
                 <constraint firstItem="RP9-ab-gd5" firstAttribute="trailing" secondItem="vw3-hw-cdh" secondAttribute="trailing" id="BEC-UW-sCs"/>
+                <constraint firstItem="nQU-dV-D7S" firstAttribute="top" secondItem="Bg2-FP-n9W" secondAttribute="bottom" constant="10" id="Bsl-3b-tYK"/>
                 <constraint firstItem="ym9-d1-m1K" firstAttribute="centerY" secondItem="vw3-hw-cdh" secondAttribute="centerY" id="L9G-uH-trM"/>
                 <constraint firstItem="Erk-Ue-Tlz" firstAttribute="leading" secondItem="vw3-hw-cdh" secondAttribute="leading" constant="20" id="LEX-NG-gRT"/>
                 <constraint firstItem="Bg2-FP-n9W" firstAttribute="top" secondItem="RP9-ab-gd5" secondAttribute="bottom" constant="16" id="OkK-vl-1FZ"/>
+                <constraint firstItem="vw3-hw-cdh" firstAttribute="trailing" secondItem="nQU-dV-D7S" secondAttribute="trailing" constant="18" id="PNf-ZR-obL"/>
                 <constraint firstItem="vw3-hw-cdh" firstAttribute="trailing" secondItem="X4b-3v-k7k" secondAttribute="trailing" constant="20" id="Thd-wP-GtV"/>
                 <constraint firstItem="6v4-dk-P0z" firstAttribute="top" secondItem="t0o-Ph-iOV" secondAttribute="top" id="WaO-22-ecN"/>
                 <constraint firstItem="vw3-hw-cdh" firstAttribute="leading" secondItem="X4b-3v-k7k" secondAttribute="leading" constant="20" id="WpI-gp-Air"/>
@@ -141,6 +167,7 @@
                 <constraint firstItem="vw3-hw-cdh" firstAttribute="trailing" secondItem="ym9-d1-m1K" secondAttribute="trailing" constant="40" id="gSm-Ds-i5x"/>
                 <constraint firstItem="vw3-hw-cdh" firstAttribute="bottom" secondItem="Erk-Ue-Tlz" secondAttribute="bottom" id="oNU-Wv-tcM"/>
                 <constraint firstItem="vw3-hw-cdh" firstAttribute="trailing" secondItem="Erk-Ue-Tlz" secondAttribute="trailing" constant="20" id="r7i-kZ-Rzt"/>
+                <constraint firstItem="Erk-Ue-Tlz" firstAttribute="top" secondItem="nQU-dV-D7S" secondAttribute="bottom" constant="16" id="rEk-v3-eeo"/>
                 <constraint firstItem="6v4-dk-P0z" firstAttribute="leading" secondItem="vw3-hw-cdh" secondAttribute="leading" id="xXX-VP-o6A"/>
             </constraints>
             <variation key="default">

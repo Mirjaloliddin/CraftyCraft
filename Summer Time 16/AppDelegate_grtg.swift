@@ -14,12 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let pushwoosh = Pushwoosh.sharedInstance()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-var cpvatr_hxaltosw: Double {
-    return 98.28702681427905
-}
+
 UINavigationBar.appearance().isHidden = true
         
-
         
         
         UIViewController.enforcePortraitOrientation
@@ -35,6 +32,7 @@ UINavigationBar.appearance().isHidden = true
         }
         
         setupTabBarchik_vatr()
+        
 
         return true
     }

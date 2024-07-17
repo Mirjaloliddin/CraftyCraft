@@ -64,7 +64,7 @@ func fqeZnJ() {
         
         // Adjust frame
         var tabFrame = self.frame
-        let keyWindow = UIApplication.shared.keyWindow
+        let keyWindow = UIApplication.keyWindow
         
         var offset: CGFloat = Device_vatr.iPad ? 0 : 60
         

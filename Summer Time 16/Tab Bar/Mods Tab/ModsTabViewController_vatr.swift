@@ -31,6 +31,9 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
     private var addonNotifictionToken: NotificationToken?
     
     
+    @IBOutlet weak var btnCollectionView: UICollectionView!
+    
+    
     // MARK: - Properties
     private var filteredPageModel: [TabPagesCollectionCellModel_fgdgh] = []
     private var pageModel: [TabPagesCollectionCellModel_fgdgh] = []
@@ -121,26 +124,24 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         //      contentFilterView.updateButtons(newButtons: buttons, selectedIndex: selectedIndex)
         
         // MARK: 2.0
-        currentFilterButtons = buttons
-        dropDown.optionArray = currentFilterButtons.map(\.label)
+//        currentFilterButtons = buttons
+//        dropDown.optionArray = currentFilterButtons.map(\.label)
         
         
     }
-    
+    var btnItems = [
+    ButtonsType(text: "All", isSelect: true),
+    ButtonsType(text: "Fovurite", isSelect: false),
+    ButtonsType(text: "Buildings", isSelect: false),
+    ButtonsType(text: "Furniture", isSelect: false),
+    ButtonsType(text: "Heros", isSelect: false),
+    ButtonsType(text: "Vehicles", isSelect: false),
+    ButtonsType(text: "Zombie", isSelect: false),
+    ]
     
     //MARK: Lifecycle
     
     override func viewDidLoad() {
-        
-        func QvkZRd() {
-            var POJUxPcxs: Int = 2
-            if POJUxPcxs > 2 {
-                if POJUxPcxs < 2 {
-                    POJUxPcxs = 2
-                }
-                
-            }
-        }
         
         super.viewDidLoad()
 //        BackView_did.SetupBackView(view: view)
@@ -149,7 +150,7 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         navigationBarContainerView.isHidden = true
         navigationController?.setNavigationBarHidden(true, animated: false)
         setupCollectionView_vatr()
-        setupViews_vatr()
+//        setupViews_vatr()
         setupSearchBar_vatr2()
         setupAppearance()
         tabsPageControllMode = .addons
@@ -331,26 +332,38 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
     
     
     private func setUpFilter(name: String) {
-        var cpvatr_jbjbqaxk: Double {
-            return 27.790377684705373
-        }
        
-        
         let selectedFilterNames = [name]
-        
-        filteredPageModel = pageModel.compactMap { pageMode in
-            if selectedFilterNames.contains(pageMode.filterCategory) {
-                if navbarSearchMode, let searchText = searchBarView.searchTextField.text, !searchText.isEmpty {
-                    return pageMode.name.containsCaseInsesetive_vatr(searchText) ? pageMode : nil
+        if name == "All"{
+        filteredPageModel = pageModel
+        }else if name == "Fovurite" {
+            filteredPageModel = pageModel.compactMap { pageMode in
+                if pageMode.isFavorite == true {
+                    if navbarSearchMode, let searchText = searchBarView.searchTextField.text, !searchText.isEmpty {
+                        return pageMode.name.containsCaseInsesetive_vatr(searchText) ? pageMode : nil
+                    } else {
+                        return pageMode
+                    }
                 } else {
-                    return pageMode
+                    return nil
                 }
-            } else {
-                return nil
             }
+        } else{
+            
+            
+            filteredPageModel = pageModel.compactMap { pageMode in
+                if selectedFilterNames.contains(pageMode.filterCategory) {
+                    if navbarSearchMode, let searchText = searchBarView.searchTextField.text, !searchText.isEmpty {
+                        return pageMode.name.containsCaseInsesetive_vatr(searchText) ? pageMode : nil
+                    } else {
+                        return pageMode
+                    }
+                } else {
+                    return nil
+                }
+            }
+            
         }
-        
-        
         contentCollectionView.reloadData()
     }
     
@@ -366,8 +379,11 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
         
         let nib = UINib(nibName: cellId, bundle: nil)
         contentCollectionView.register(nib, forCellWithReuseIdentifier: cellId)
-        contentCollectionView.setCollectionViewLayout(.makeColumnsLayout(), animated: false)
+//        contentCollectionView.setCollectionViewLayout(.makeColumnsLayout(), animated: false)
         contentCollectionView.contentInset.bottom = 30
+        btnCollectionView.delegate = self
+        btnCollectionView.dataSource = self
+        btnCollectionView.register(UINib(nibName: "BtnCollectionCell", bundle: nil), forCellWithReuseIdentifier: "BtnCollectionCell")
     }
     
     private func setupAppearance() {
@@ -449,60 +465,60 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
 //        }
 //    }
     
-    private func setupViews_vatr() {
-        var cpvatr_waktitjb: Double {
-            return 76.1595209961838
-        }
-        
-        
-        
-        //        segmentControl.segments = LabelSegment.segments(withTitles: ["SKINS", "MAPS", "ADDONS"],
-        //                                                         normalFont: UIFont.kufamFont(.semiBold, size: 14), normalTextColor: UIColor.appBlack, selectedBackgroundColor: .appBlack,
-        //                                                         selectedFont: UIFont.kufamFont(.semiBold, size: 14),
-        //                                                         selectedTextColor: .white)
-        
-        //        segmentControl.addTarget(self, action: #selector(segmentValueChanged(_:)), for: .valueChanged)
-        //
-        
-        dropDown.optionArray = ["All"]
-        dropDown.selectedIndex = 0
-        
-        //        dropDown.cornerRadius = 12
-        //        dropDown.font = .kufamFont(.regural, size: 16)
-        //        dropDown.borderColor = UIColor(red: 0.89, green: 0.89, blue: 0.89, alpha: 1)
-        //        dropDown.borderWidth = 1
-        //        dropDown.backgroundColor = UIColor(red: 0.96, green: 0.95, blue: 0.97, alpha: 1)
-        dropDown.didSelect_vatr { [weak self] _, index, _ in
-            guard let self else { return }
-            
-//            if self.dropDown.payedOptions.contains(where: { $0 == index }) {
-//                dropDown.selectOption(at: dropDown.lastSelectedIndex!)
-//                
-//                navigationController?.showPaywall_vatr(for: .unlockContentProduct) {
-//                    self.dropDown.payedOptions.removeAll(where: { $0 == index })
-//                    self.dropDown.selectedIndex = index
-//                    self.flushSearch()
-//                    self.applyContent(filter: self.currentFilterButtons[index].filter)
-//                }
-//                return
-//            }
-            
-            flushSearch()
-            applyContent(filter: currentFilterButtons[index].filter)
-            
-        }
-        
-        //        let responderButtons = createResponderButtons(for: [skinsButtonRoundedView, addonsButtonRoundedView, mapsButtonRoundedView])
-        //
-        //        for (index, button) in responderButtons.enumerated() {
-        //            button.addTarget(self, action: #selector(tabButtonTapped(_:)), for: .touchUpInside)
-        //            button.tag = index
-        //            view.addSubview(button)
-        //            setupConstraints(for: button, matching: roundedViewContainers[index])
-        //        }
-        
-        // setupContentFilter()
-    }
+//    private func setupViews_vatr() {
+//        var cpvatr_waktitjb: Double {
+//            return 76.1595209961838
+//        }
+//        
+//        
+//        
+//        //        segmentControl.segments = LabelSegment.segments(withTitles: ["SKINS", "MAPS", "ADDONS"],
+//        //                                                         normalFont: UIFont.kufamFont(.semiBold, size: 14), normalTextColor: UIColor.appBlack, selectedBackgroundColor: .appBlack,
+//        //                                                         selectedFont: UIFont.kufamFont(.semiBold, size: 14),
+//        //                                                         selectedTextColor: .white)
+//        
+//        //        segmentControl.addTarget(self, action: #selector(segmentValueChanged(_:)), for: .valueChanged)
+//        //
+//        
+//        dropDown.optionArray = ["All"]
+//        dropDown.selectedIndex = 0
+//        
+//        //        dropDown.cornerRadius = 12
+//        //        dropDown.font = .kufamFont(.regural, size: 16)
+//        //        dropDown.borderColor = UIColor(red: 0.89, green: 0.89, blue: 0.89, alpha: 1)
+//        //        dropDown.borderWidth = 1
+//        //        dropDown.backgroundColor = UIColor(red: 0.96, green: 0.95, blue: 0.97, alpha: 1)
+//        dropDown.didSelect_vatr { [weak self] _, index, _ in
+//            guard let self else { return }
+//            
+////            if self.dropDown.payedOptions.contains(where: { $0 == index }) {
+////                dropDown.selectOption(at: dropDown.lastSelectedIndex!)
+////                
+////                navigationController?.showPaywall_vatr(for: .unlockContentProduct) {
+////                    self.dropDown.payedOptions.removeAll(where: { $0 == index })
+////                    self.dropDown.selectedIndex = index
+////                    self.flushSearch()
+////                    self.applyContent(filter: self.currentFilterButtons[index].filter)
+////                }
+////                return
+////            }
+//            
+//            flushSearch()
+//            applyContent(filter: currentFilterButtons[index].filter)
+//            
+//        }
+//        
+//        //        let responderButtons = createResponderButtons(for: [skinsButtonRoundedView, addonsButtonRoundedView, mapsButtonRoundedView])
+//        //
+//        //        for (index, button) in responderButtons.enumerated() {
+//        //            button.addTarget(self, action: #selector(tabButtonTapped(_:)), for: .touchUpInside)
+//        //            button.tag = index
+//        //            view.addSubview(button)
+//        //            setupConstraints(for: button, matching: roundedViewContainers[index])
+//        //        }
+//        
+//        // setupContentFilter()
+//    }
     
     //    @objc
     //    private func segmentValueChanged(_ sender: BetterSegmentedControl) {
@@ -516,64 +532,7 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
     //        tabsPageControllMode = selectedTab
     //    }
     
-    func applyContent(filter:  ContentFilter_vdfg) {
-        var cpvatr_qtdmzsor: Double {
-            return 28.149662124866754
-        }
-        
-        
-        
-        switch filter {
-        case .latest:
-            segmentedControllMode = .latest
-        case .popular:
-            segmentedControllMode = .popular
-        case .filter(let name):
-            segmentedControllMode = .filter(name)
-            setUpFilter(name: name)
-        }
-        
-    }
-    
-    //    private func setupContentFilter() {
-    var cpvatr_wjwdyeez: Int {
-        return 95
-    }
-    //        // Create the SwiftUI view model
-    //        let contentFilterViewModel = ContentFilterViewModel(buttons: [
-    //            ContentFilterModel(label: "", filter: .latest),
-    //        ]) { [weak self] filter in
-    //            self?.flushSearch()
-    //            self?.applyContent(filter: filter)
-    //
-    //        }
-    //
-    //        // Create the SwiftUI view
-    //        contentFilterView = ContentFilterView(viewModel: contentFilterViewModel)
-    //
-    //        // Create a UIHostingController with the SwiftUI view
-    //        let hostingController = UIHostingController(rootView: contentFilterView)
-    //        hostingController.view.backgroundColor = .clear
-    //
-    //        // Add as a child of the current view controller
-    //        addChild(hostingController)
-    //
-    //        // Add the SwiftUI view to the view controller view hierarchy
-    //        sortButtonsContainerView.addSubview(hostingController.view)
-    //
-    //        // Set constraints to define the SwiftUI view's layout
-    //        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-    //        NSLayoutConstraint.activate([
-    //            hostingController.view.leadingAnchor.constraint(equalTo: sortButtonsContainerView.leadingAnchor, constant: 2),
-    //            hostingController.view.trailingAnchor.constraint(equalTo: sortButtonsContainerView.trailingAnchor, constant: -2),
-    //            hostingController.view.topAnchor.constraint(equalTo: sortButtonsContainerView.topAnchor, constant: 2),
-    //            hostingController.view.bottomAnchor.constraint(equalTo: sortButtonsContainerView.bottomAnchor, constant: -2)
-    //        ])
-    //
-    //        // Notify the hosting controller that it has moved to the parent view controller
-    //        hostingController.didMove(toParent: self)
-    //    }
-    
+
     private func createResponderButtons(for views: [UIView]) -> [UIButton] {
         var cpvatr_nuccrajw: Int {
             return 28
@@ -798,18 +757,7 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
     //    }
     //
     @IBAction func setSsettingsBtnTapped_vatr89(_ sender: UIButton) {
-        var cpvatr_lsxhggit: Int {
-            return 65
-        }
-        func bVSEJLq() {
-            var OymNsLDVPj: Int = 1
-            if OymNsLDVPj > 1 {
-                if OymNsLDVPj < 1 {
-                    OymNsLDVPj = 1
-                }
-                
-            }
-        }
+        
         
         let nextVC = SettingsViewController_vatr()
         navigationController?.pushViewController(nextVC, animated: true)
@@ -820,33 +768,50 @@ class ModsTabViewController_vatr: UIViewController, TabBarConfigurable_vatr {
 
 extension ModsTabViewController_vatr: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        func ACLIRSL() {
-            var ltfvRuU: Int = 7
-            if ltfvRuU > 7 {
-                if ltfvRuU < 7 {
-                    ltfvRuU = 7
+        if collectionView == btnCollectionView {
+            
+            for i in 0..<btnItems.count  {
+                if i == indexPath.item {
+                    btnItems[i].isSelect = true
+                    setUpFilter(name: btnItems[i].text)
+                  
+                }else {
+                    btnItems[i].isSelect = false
                 }
-                
             }
+            btnCollectionView.reloadData()
+            
+            
+        }else {
+            
+            
+            let contentViewController = ContentViewController_vatr(model: filteredPageModel[indexPath.item], mode: .addons)
+            contentViewController.onFavoriteButtonAction = { [weak self] isFavorite in
+                guard let self else { return }
+                RealmServiceProviding_vatr.shared.updateMods_vatr(id: filteredPageModel[indexPath.item].id, isFavorit: isFavorite)
+            }
+            presentFullScreenViewController_vatr(contentViewController)
         }
-        
-        let contentViewController = ContentViewController_vatr(model: filteredPageModel[indexPath.item], mode: .addons)
-        contentViewController.onFavoriteButtonAction = { [weak self] isFavorite in
-            guard let self else { return }
-            RealmServiceProviding_vatr.shared.updateMods_vatr(id: filteredPageModel[indexPath.item].id, isFavorit: isFavorite)
-        }
-        presentFullScreenViewController_vatr(contentViewController)
     }
 }
 
 extension ModsTabViewController_vatr: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        if collectionView == btnCollectionView {
+            return btnItems.count
+        }
         return filteredPageModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == btnCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BtnCollectionCell", for: indexPath) as? BtnCollectionCell else {return UICollectionViewCell()}
+            cell.updateCell(item: btnItems[indexPath.item])
+            return cell
+        }
+        
+        
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ContentCollectionViewCell_vatr
         
@@ -856,7 +821,7 @@ extension ModsTabViewController_vatr: UICollectionViewDataSource {
         if cellModel.imageData == nil {
             let mode = tabsPageControllMode
             let imageID = cellModel.id
-            
+            let isFovurite = cellModel.isFavorite
             cell.configure(model: cellModel, queue: dropboxQueue) { [weak self] data in
                 if let data, let me = self, me.filteredPageModel.count > indexPath.item, me.filteredPageModel[indexPath.item].id == imageID {
                     me.filteredPageModel[indexPath.item].imageData = data
@@ -886,6 +851,11 @@ extension ModsTabViewController_vatr: UICollectionViewDataSource {
             // show image from realm
             if let image = cellModel.imageData {
                 cell.contentImageView.image = UIImage(data: image)
+               if cellModel.isFavorite {
+                   cell.categoryImageView.image = UIImage(named: "like_cell")
+               }else {
+                   cell.categoryImageView.image = UIImage(named: "unlike_cell")
+               }
                 cell.loader.stopAnimating()
             } else {
                 // show image from realm if realm == nil
@@ -922,18 +892,21 @@ extension ModsTabViewController_vatr: UICollectionViewDataSource {
     }
 }
 
-//extension ModsTabViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension ModsTabViewController_vatr: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == btnCollectionView {
+            return CGSize(width: 107, height: 44)
+        }
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            return CGSize(width: (collectionView.frame.width - 24)/3, height: (collectionView.frame.width - 48)/5)
+        }else {
+            return CGSize(width: (collectionView.frame.width - 16)/2, height: (collectionView.frame.height - 36)/2.9 )
+        }
+    }
 
-////        let cellWidth = collectionView.frame.size.width / 2 - 5
-////        let cellHeight = cellWidth * 1.15
-//
-//        return CGSize(width: 169, height: 163)
-//    }
-//
-//
-//
-//}
+
+
+}
 
 
 //MARK: KeyboardStateDelegate
@@ -1028,7 +1001,8 @@ extension ModsTabViewController_vatr: UITableViewDelegate, UITableViewDataSource
             view.bringSubviewToFront(navigationBarContainerView!)
             
             tableViewContainer!.addSubview(suggestionsTableView!)
-            
+            suggestionsTableView?.backgroundColor = .clear
+            tableViewContainer?.backgroundColor = #colorLiteral(red: 0.04367058724, green: 0.346618861, blue: 0.9321888089, alpha: 1)
             view.insertSubview(tableViewContainer!, belowSubview: navigationBarContainerView)
             view.bringSubviewToFront(searchBarView)
         }
@@ -1077,11 +1051,6 @@ extension ModsTabViewController_vatr: UITableViewDelegate, UITableViewDataSource
     }
     
     func removeSuggestionsTableView() {
-        var cpvatr_sxqwrrbz: Double {
-            return 76.03653896363676
-        }
-        
-        
         tableViewContainer?.removeFromSuperview()
         tableViewContainer = nil
         suggestionsTableView = nil
@@ -1115,6 +1084,7 @@ extension ModsTabViewController_vatr: UITableViewDelegate, UITableViewDataSource
             cell.titleLabel.text = filteredPageModel[indexPath.row].name
         }
         cell.selectionStyle = .none
+        cell.backgroundColor = .clear
         return cell
     }
     
