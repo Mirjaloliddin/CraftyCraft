@@ -50,6 +50,16 @@ class SeedTabViewController_vatr: UIViewController {
     }
     @IBOutlet weak var emptyLabel: UILabel!
     
+    @IBOutlet weak var btnCollectionView: UICollectionView!
+    
+    
+    var btnItems = [
+    ButtonsType(text: "All", isSelect: true),
+    ButtonsType(text: "Fovurite", isSelect: false),
+    ButtonsType(text: "Popular", isSelect: false),
+    ]
+    
+    
     // @IBOutlet weak var subscriptionLockView: UIView!
     
     
@@ -212,7 +222,7 @@ class SeedTabViewController_vatr: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.setCollectionViewLayout(.makeColumnsLayout(), animated: false)
+//        collectionView.setCollectionViewLayout(.makeColumnsLayout(), animated: false)
         collectionView.contentInset.bottom = 30
         
     }
@@ -330,6 +340,9 @@ class SeedTabViewController_vatr: UIViewController {
         collectionView.reloadData()
         emptyLabel.isHidden = collectionView.numberOfItems(inSection: 0) != 0
         collectionView.isUserInteractionEnabled = emptyLabel.isHidden
+        btnCollectionView.delegate = self
+        btnCollectionView.dataSource = self
+        btnCollectionView.register(UINib(nibName: "BtnCollectionCell", bundle: nil), forCellWithReuseIdentifier: "BtnCollectionCell")
     }
 }
 
@@ -344,8 +357,14 @@ extension SeedTabViewController_vatr: TabBarConfigurable_vatr {
     }
 }
 
-extension SeedTabViewController_vatr: UICollectionViewDataSource {
+extension SeedTabViewController_vatr: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == btnCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BtnCollectionCell", for: indexPath) as? BtnCollectionCell else {return UICollectionViewCell()}
+            cell.updateCell(item: btnItems[indexPath.item])
+            return cell
+        }
+        
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeedTableViewCell_vatr.identifier, for: indexPath) as! SeedTableViewCell_vatr
         
@@ -376,32 +395,63 @@ extension SeedTabViewController_vatr: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        if collectionView == btnCollectionView {
+            return btnItems.count
+        }
         return dataSourceSeed.count
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == btnCollectionView {
+            return CGSize(width: 107, height: 44)
+        }
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            return CGSize(width: (collectionView.frame.width - 24)/3, height: (collectionView.frame.width - 48)/5)
+        }else {
+            return CGSize(width: (collectionView.frame.width - 16)/2, height: (collectionView.frame.height - 36)/2.9 )
+        }
+    }
+    
     
 }
 
 extension SeedTabViewController_vatr: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        var rerandomDaкerfte: Date {
-            let randomTimeInterval = Double.random(in: 0...(365 * 24 * 60 * 60))
-            return Date().addingTimeInterval(randomTimeInterval)
+        if collectionView == btnCollectionView {
+            
+            for i in 0..<btnItems.count  {
+                if i == indexPath.item {
+                    btnItems[i].isSelect = true
+//                    setUpFilter(name: btnItems[i].text)
+                    
+                }else {
+                    btnItems[i].isSelect = false
+                }
+            }
+            btnCollectionView.reloadData()
+            
+            
+        }else{
+            
+            
+            
+            var rerandomDaкerfte: Date {
+                let randomTimeInterval = Double.random(in: 0...(365 * 24 * 60 * 60))
+                return Date().addingTimeInterval(randomTimeInterval)
+            }
+            
+            let seedModel = dataSourceSeed[indexPath.row]
+            guard let realmSeedModel = getRealmSeedWith(id: seedModel.id) else {
+                let alert = UIAlertController(title: "OOOPss", message: "Something ERROR", preferredStyle: .alert)
+                alert.addAction(.init(title: "OK", style: .cancel))
+                navigationController?.present(alert, animated: true)
+                return
+            }
+            let contentViewController = ContentViewController_vatr(model: .init(id: realmSeedModel.id, name: realmSeedModel.name, image: realmSeedModel.seedImagePath, isContentNew: false, description: realmSeedModel.seedDescrip, isFavorite: false, filterCategory: "", file: realmSeedModel.seed), mode: .addons)
+            contentViewController.favoriteButtonIsHidden = true
+            
+            presentFullScreenViewController_vatr(contentViewController)
         }
-        
-        let seedModel = dataSourceSeed[indexPath.row]
-        guard let realmSeedModel = getRealmSeedWith(id: seedModel.id) else {
-            let alert = UIAlertController(title: "OOOPss", message: "Something ERROR", preferredStyle: .alert)
-            alert.addAction(.init(title: "OK", style: .cancel))
-            navigationController?.present(alert, animated: true)
-            return
-        }
-        let contentViewController = ContentViewController_vatr(model: .init(id: realmSeedModel.id, name: realmSeedModel.name, image: realmSeedModel.seedImagePath, isContentNew: false, description: realmSeedModel.seedDescrip, isFavorite: false, filterCategory: "", file: realmSeedModel.seed), mode: .addons)
-        contentViewController.favoriteButtonIsHidden = true
-        
-        presentFullScreenViewController_vatr(contentViewController)
-        
     }
 }
 

@@ -72,7 +72,7 @@ func PaNarXh() {
         super.awakeFromNib()
         patnisV.layer.masksToBounds = true
         patnisV.layer.cornerRadius = 8
-        Gradient.setupGradientForBorderColor(view: patnisV)
+        Gradient.setupGradientForBorderColor(view: patnisV, borderWidth: 3/2)
         headerLabel.font = UIFont(name: "Kufam-Bold", size: 16)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.numberOfLines = .zero
@@ -153,7 +153,11 @@ func JklZNeKXrq() {
 }
   
         
-       
+       if model.isFavorite {
+           categoryImageView.image = UIImage(named: "unlike_cell")
+       }else {
+           categoryImageView.image = UIImage(named: "like_cell")
+       }
         
         self.imageDataCallback = completion
         

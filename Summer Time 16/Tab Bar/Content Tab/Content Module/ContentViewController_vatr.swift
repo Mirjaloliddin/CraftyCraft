@@ -84,16 +84,6 @@ class ContentViewController_vatr: UIViewController {
     
     override func viewDidLoad() {
         
-        func fVzND() {
-            var QQwQE: Int = 4
-            if QQwQE > 4 {
-                if QQwQE < 4 {
-                    QQwQE = 4
-                }
-                
-            }
-        }
-        
         super.viewDidLoad()
         
         backImg_vatr.contentMode = .scaleAspectFill
@@ -208,7 +198,7 @@ class ContentViewController_vatr: UIViewController {
         super.viewWillAppear(animated)
         favoriteButton.isHidden = favoriteButtonIsHidden
         if favoriteButtonIsHidden {
-            trailingDownloadButtonConstraint.isActive = true
+//            trailingDownloadButtonConstraint.isActive = true
         }
         
     }
@@ -227,8 +217,11 @@ class ContentViewController_vatr: UIViewController {
             loadDropboxImage_vatr2(imageName: model.image, queue: dropboxQueue)
         }
         pageLabel.text = model.name.uppercased()
-        textView.text = model.description
-        
+        if model.description == "" {
+            textView.text = "Dictum tempus at nisl diam pharetra, urna, felis, eget tellus. Sagittis at pharetra enim amet, in.Dictum tempus at nisl diam pharetra, urna, felis, eget tellus. Sagittis at pharetra enim amet."
+        }else {
+            textView.text = model.description
+        }
             //      pageImage.roundCorners_vatr(12)
         //pageImage.clipsToBounds = true
         //downloadButton_vatr.roundCorners()

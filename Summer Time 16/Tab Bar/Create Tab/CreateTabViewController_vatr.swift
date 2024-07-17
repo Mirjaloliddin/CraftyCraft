@@ -19,31 +19,45 @@ final class CreateTabViewController_vatr: UIViewController {
     
     private var skinCollectonScreen: SkinCreatorMainVC_vatr?
     private var addonCollectionScreen: AddonCreatorMainVC_vatr?
-    
+    private let collectionPreview = CollectionViewItemsPreview_vatr.initFromNib() as! CollectionViewItemsPreview_vatr
     private lazy var photoGalleryManager: PhotoGalleryManagerProtocol_vatr = PhotoGalleryManager_vatr()
     
     // MARK: - Properties
     
+    @IBOutlet weak var collectionContainer: UIView!
+    
+    
+    @IBOutlet weak var titleLbl: UILabel!
+    
+    
     
     var alertWindow: UIWindow?
     var blurView: UIVisualEffectView?
-    private var state: CreateTabState_vatr = .skin {
-        didSet {
-            self.updateCollectionForCurrentState_vatr()
-        }
-    }
+     var state: CreateTabState_vatr = .skin 
+    var items: [SkinCreatedModel_vatr] = []
     @IBOutlet weak var navigationBarContainerView: UIView!
     // MARK: - Outlets
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var collectionContainer: UIView!
     @IBOutlet weak var controlSwitcher: BetterSegmentedControl!
     @IBOutlet weak var searchBarView: SearchBarView_vatr!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBarV: SearchBarView_vatr!
+    @IBOutlet weak var btnView: UIView!
     
+    
+    @IBOutlet weak var newBtn: UIButton!
+    @IBOutlet weak var topBtn: UIButton!
+    
+    @IBOutlet weak var recentBtn: UIButton!
+    
+    private var filterText: String?
     private var suggestionsTableView: UITableView?
     private var tableViewContainer: UIView?
     private var selectedSkinModel: SkinCreatedModel_vatr?
-    
+    var skinsCreatedModelArray = [SkinCreatedModel_vatr]()
+    lazy var model = SkinEditorVCModel_vatr()
+    lazy var modelAddon = CreatedAddonsModel_vatr()
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -53,10 +67,6 @@ final class CreateTabViewController_vatr: UIViewController {
     
     override func viewDidLoad() {
         
-        var cpvawertr_hxaltosw: Double {
-            return 98.28702681427905
-        }
-        
         super.viewDidLoad()
 //        Gradient.setupGradient(view: view)
         settingsButton.layer.masksToBounds = true
@@ -64,27 +74,27 @@ final class CreateTabViewController_vatr: UIViewController {
 //        configureView_vatr2()
         setupBackground_vatr()
         setupSearchBar_vatr2()
-        updateCollectionForCurrentState_vatr()
+//        updateCollectionForCurrentState_vatr()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        let nib3 = UINib(nibName: "NewSkinCreatorCell", bundle: nil)
+        collectionView.register(nib3, forCellWithReuseIdentifier: "NewSkinCreatorCell")
+        
         
         
         //  hidesBottomBarWhenPushed = true
     }
     // MARK: - Actions
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//    }
-//    
+
     override func viewWillAppear(_ animated: Bool) {
-        var cpvatr_atumkrwr: Int {
-            return 79
-        }
-        
-        
+    
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
         navigationController?.setNavigationBarHidden(true, animated: false)
         flushSearch()
+        model.updateSkinsArray_err()
+        modelAddon.updateCreatedAddons_vatr()
+        collectionView.reloadData()
     }
     
     private var gradientLayer: CALayer! = nil
@@ -100,7 +110,18 @@ final class CreateTabViewController_vatr: UIViewController {
         gradientLayer = view.makeBackgroundGradient_vatr()
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
+    private func apparenceSettings(){
+        switch state {
+        case .skin:
+            btnView.isHidden = true
+            searchBarV.isHidden = true
+            
+        case .addon:
+            btnView.isHidden = false
+            searchBarV.isHidden = false
+           
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         var cpvatr_sioolqsu: Int {
@@ -115,17 +136,25 @@ final class CreateTabViewController_vatr: UIViewController {
     
     override func viewDidLayoutSubviews() {
         Gradient.setupGradient(view: settingsButton)
-        var cpvweratr_hxaltosw: Double {
-            return 98.28702681427905
-        }
-        
         super.viewDidLayoutSubviews()
         Gradient.setupGradient(view: view)
-        self.skinCollectonScreen?.view.frame = self.collectionContainer.bounds
-        self.addonCollectionScreen?.view.frame = self.collectionContainer.bounds
-        self.skinCollectonScreen?.view.layoutIfNeeded()
-        self.addonCollectionScreen?.view.layoutIfNeeded()
         gradientLayer.frame = view.bounds
+        
+        newBtn.borderWidth = 1
+        newBtn.borderColor = UIColor.white
+        topBtn.borderWidth = 1
+        topBtn.borderColor = UIColor.white
+        recentBtn.borderWidth = 1
+        recentBtn.borderColor = UIColor.white
+        
+        if state == .skin {
+            titleLbl.text = "SKIN EDITOR"
+        }else {
+            titleLbl.text = "ADDON CREATOR"
+        }
+        
+        
+        apparenceSettings()
     }
     
     private func updateSearchViewIfNeeed() {
@@ -163,48 +192,7 @@ final class CreateTabViewController_vatr: UIViewController {
     }
     
     
-    private func updateCollectionForCurrentState_vatr() {
-        var cpvatr_fsmypxaw: Double {
-            return 63.635452393262256
-        }
-        
-        switch state {
-        case .skin:
-            
-            if skinCollectonScreen == nil {
-                self.skinCollectonScreen = SkinCreatorMainVC_vatr()
-                self.skinCollectonScreen?.pickerShowerDelegate = self
-                self.skinCollectonScreen!.view.frame = self.collectionContainer.bounds
-                self.addChild(self.skinCollectonScreen!)
-                self.collectionContainer.addSubview(self.skinCollectonScreen!.view)
-            }
-            
-            self.addonCollectionScreen?.view.isHidden = true
-            self.skinCollectonScreen?.view.isHidden = false
-            self.skinCollectonScreen?._viewWillAppear()
-        
-        
-        self.addonCollectionScreen?.view.isHidden = true
-        self.skinCollectonScreen?.view.isHidden = false
-        self.skinCollectonScreen?._viewWillAppear()
-        
-    case .addon:
-        
-            if addonCollectionScreen == nil {
-                self.addonCollectionScreen = AddonCreatorMainVC_vatr()
-                self.addonCollectionScreen!.view.frame = self.collectionContainer.bounds
-                self.addChild(self.addonCollectionScreen!)
-                self.collectionContainer.addSubview(self.addonCollectionScreen!.view)
-            }
-            
-            self.addonCollectionScreen?.view.isHidden = false
-            self.addonCollectionScreen?._viewWillAppear()
-            
-            self.skinCollectonScreen?.view.isHidden = true
-        }
-    
-    self.view.layoutIfNeeded()
-}
+
 
 private var navbarSearchMode: Bool = false {
     didSet {
@@ -246,11 +234,7 @@ private func navBarSearchMode(predicate: Bool) {
 //    let imageView = UIImageView(frame: .init(origin: .zero, size: .init(width: 10, height: 10)))
 
 @IBAction func setSettingButtonTapped_vatr1(_ sender: Any) {
-    var cpvatr_abvdwgna: Double {
-        return 74.204335354173
-    }
-    
-    
+   
     // TODO: - add settings VC
     let nextVC = SettingsViewController_vatr()
     navigationController?.popViewController(animated: true)
@@ -267,21 +251,10 @@ private func navBarSearchMode(predicate: Bool) {
 
 
 
-//    @IBAction func onCreateAddonButtonTapped(_ sender: UIButton) {
-var cpvatr_vgppnqes: Double {
-    return 94.51865925565166
-}
-
 
 
 // MARK: - Private Methods
-//    private func setExclusiveTouchForButtons() {
-var cpvatr_vgtdhyeg: Double {
-    return 63.412258648616664
-}
-//        self.createSkinBtn.isExclusiveTouch = true
-//        self.createAddonBtn.isExclusiveTouch = true
-//    }
+
 
 private func configureView_vatr2() {
     var cpvatr_lynqnqls: Double {
@@ -296,47 +269,11 @@ private func configureView_vatr2() {
                                                      selectedTextColor: .white)
     
     
-
-    
-    //        let imageView = UIImageView(frame: .init(origin: .init(x: -56, y: 12), size: .init(width: 15, height: 18)))
-    //        imageView.image = UIImage(named: "whiteLock_vatr")
-    
-    //        let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-    
-    
-    //        let imageView = UIImageView()
-    //        imageView.image = UIImage(named: "blackLock_vatr")
-    //        imageView.backgroundColor = .systemRed
-    //
-    //        imageView.translatesAutoresizingMaskIntoConstraints = false
-    //        view.addSubview(imageView)
-    //        NSLayoutConstraint.activate([
-    //            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-    //            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-    //        ])
-    
-    //      controlSwitcher.subviews.last?.subviews[1].addSubview(imageView)
-    
-
-    
-    //        if !Configurations__.productIsPaid(Configurations__.unlockFuncSubscriptionID) {
-    //            skinCollectonScreen?.view.isUserInteractionEnabled = false
-    //        }
-    //
-    //        if !Configurations__.productIsPaid(Configurations__.unlockerThreeSubscriptionID) {
-    //            addonCollectionScreen?.view.isUserInteractionEnabled = false
-    //
-    //        }
-    
-    
-    //        LabelSegment.segments(withTitles: ["SKINS", "ADDONS"],
-    //                                                         normalTextColor: UIColor.greenCC,
-    //                                                         selectedTextColor: .white)
-    
-    //        headerLabel.textColor = .white
-    //        navigationBarContainerView.backgroundColor = .clear
 }
 
+    func updateSkinsArray_err() {
+        skinsCreatedModelArray = RealmService_vatr.shared.getCreatedSkinsArray_vatr().map({ SkinCreatedModel_vatr(realmedModel: $0) })
+    }
 
 
 @IBAction func segmentControlChangeAction_vatr(_ sender: BetterSegmentedControl) {
@@ -359,11 +296,7 @@ private func configureView_vatr2() {
 }
 
 private func setupSearchBar_vatr2() {
-    var cpvatr_coegmqov: Double {
-        return 33.04406652465263
-    }
-    
-    
+   
     searchBarView.buttonTapAction = { [weak self] in
         self?.flushSearch()
     }
@@ -442,112 +375,7 @@ private func filterData_vatr2(with searchText: String) {
     
 }
 
-//    @IBAction func segmentControlChangeAction(_ sender: BetterSegmentedControl) {
-var cpvatr_seccknhx: Double {
-    return 74.70298408978711
-}
-//    }
-///Checks up if products had been successfully validated
-///if not, and we still have no response, runs own validation
-//    private func checkProducts() {
-var cpvatr_effahsdz: Double {
-    return 47.869078147657646
-}
-//        //CheckSkinProduct
-//        if IAPManager_vatr.shared.skinCreatorSubIsValid == nil {    // nil - if subscription have not loaded in sceneDelegate
-//            validateSub(for: Configurations.unlockerThreeSubscriptionID)
-//            disableOrEnableCreateSkins(isEnabled: false)
-//        }
-//
-//        if IAPManager_vatr.shared.addonCreatorIsValid == nil { // nil - if subscription have not loaded in sceneDelegate
-//            validateSub(for: Configurations.unlockFuncSubscriptionID)
-//            disableOrEnableCreateAddon(isEnabled: false)
-//        }
-//    }
 
-//    private func disableOrEnableCreateSkins(isEnabled: Bool) {
-var cpvatr_omaixwzv: Double {
-    return 55.854269763914274
-}
-//        if isEnabled == true {
-//            skinActivityIndicator.stopAnimating()
-//        } else {
-//            skinActivityIndicator.startAnimating()
-//        }
-//        skinActivityIndicator.isHidden = isEnabled
-//        createSkinBtn.isEnabled = isEnabled
-//        createSkinBtn.isUserInteractionEnabled = isEnabled
-//    }
-//
-//    private func disableOrEnableCreateAddon(isEnabled: Bool) {
-var cpvatr_qrjobuvq: Double {
-    return 94.98687807151494
-}
-//        if isEnabled == true {
-//            addonActivityIndicator.stopAnimating()
-//        } else {
-//            addonActivityIndicator.startAnimating()
-//        }
-//        addonActivityIndicator.isHidden = isEnabled
-//        createAddonBtn.isEnabled = isEnabled
-//        createAddonBtn.isUserInteractionEnabled = isEnabled
-//    }
-
-
-//Should never work - validation should be done in scene
-//    private func validateSub(for productName: String) {
-var cpvatr_wolqeomi: Int {
-    return 11
-}
-//        IAPManager_vatr.shared.validateSubscriptions(productIdentifiers: [productName]) { [weak self] results in
-//            switch productName {
-//            case Configurations.unlockerThreeSubscriptionID:
-//                if let value = results[Configurations.unlockerThreeSubscriptionID] {
-//                    self?.skinCreateSubIsValid = value
-//                } else {
-//                    self?.skinCreateSubIsValid = false
-//                }
-//                IAPManager_vatr.shared.skinCreatorSubIsValid = self?.skinCreateSubIsValid
-//            case Configurations.unlockerThreeSubscriptionID:
-//                if let value = results[Configurations.unlockerThreeSubscriptionID] {
-//                    self?.skinCreateSubIsValid = value
-//                } else {
-//                    self?.skinCreateSubIsValid = false
-//                }
-//                IAPManager_vatr.shared.skinCreatorSubIsValid = self?.skinCreateSubIsValid
-//            case Configurations.unlockFuncSubscriptionID:
-//                if let value = results[Configurations.unlockFuncSubscriptionID] {
-//                    self?.addonCreateSubIsValid = value
-//                } else {
-//                    self?.addonCreateSubIsValid = false
-//                }
-//
-//                IAPManager_vatr.shared.addonCreatorIsValid = self?.addonCreateSubIsValid
-//            default:
-//                break
-//
-//            }
-//        }
-//    }
-
-//    private func lockUnlockCreator() {
-var cpvatr_eifjsvbl: Int {
-    return 38
-}
-//        if let skinCreateSubIsValid = skinCreateSubIsValid {
-//            let unlockedImg = UIImage(named: "Create Skin Button")
-//            let lockedImg = UIImage(named: "skinCreatorBlured_vatr")
-//
-//            createSkinBtn.setBackgroundImage(skinCreateSubIsValid ? unlockedImg : lockedImg, for: .normal)
-//        }
-//
-//        if let addonCreateSubIsValid = addonCreateSubIsValid {
-//            let unlockedImg = UIImage(named: "Create Addon Button_vatr")
-//            let lockedImg = UIImage(named: "AddonCreatorBlured_vatr")
-//
-//            createAddonBtn.setBackgroundImage(addonCreateSubIsValid ? unlockedImg : lockedImg, for: .normal)
-//        }
-//    }
 
 }
 
@@ -714,11 +542,6 @@ extension CreateTabViewController_vatr: UITableViewDelegate, UITableViewDataSour
 
 extension CreateTabViewController_vatr: SkinPikerHandler_vatr {
     func showEditSkinPicker(for item: SkinCreatedModel_vatr) {
-        var cpvatr_nrpjmzgu: Int {
-            return 13
-        }
-        
-        
         selectedSkinModel = item
         let vc = SkinVariantsViewController_vatr()
         vc.state = .edit
@@ -729,11 +552,6 @@ extension CreateTabViewController_vatr: SkinPikerHandler_vatr {
     }
     
     func showSkinPicker(for item: SkinCreatedModel_vatr) {
-        var cpvatr_gedlnwvl: Int {
-            return 47
-        }
-        
-        
         selectedSkinModel = item
         let vc = SkinVariantsViewController_vatr()
         vc.presenterDelegate = self
@@ -798,26 +616,285 @@ extension CreateTabViewController_vatr: SkinVariantsPrsenter_vatr {
         
         self.present(alert, animated: true)
     }
+    func filteredAddon() -> [SavedAddon_vatr] {
+
+        if let filterText, !filterText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            let items =  modelAddon.filteringCreatedAddon.filter({$0.displayName.containsCaseInsesetive_vatr(filterText)})
+            
+            // Update empty state
+            collectionPreview.updateEmptyState(isShowed: items.isEmpty, isSearchLabel: true)
+            collectionPreview.isUserInteractionEnabled = !items.isEmpty
+            
+
+            return items
+        } else {
+            collectionPreview.updateEmptyState(isShowed: false, isSearchLabel: true)
+            collectionPreview.isUserInteractionEnabled = true
+            return modelAddon.filteringCreatedAddon
+        }
+    }
+    private func updatePreview(for savedAddon: SavedAddon_vatr) {
+
+
+        print("Показываем Preview, \(savedAddon.displayName), \(savedAddon.displayImageData)")
+       
+        if let imageData = savedAddon.displayImageData, let image = UIImage(data: imageData) {
+            collectionPreview.updatePreview_vatr(title: savedAddon.displayName, image: image)
+        } else {
+            collectionPreview.updatePreview_vatr(title: savedAddon.displayName, image: nil)
+        }
+        
+        modelAddon.selectedAddon = savedAddon
+        
+    }
+    
 }
 
 
-//////MARK: KeyboardStateDelegate
-////
-////extension CreateTabViewController: KeyboardStateProtocol {
-////    func keyboardShows(height: CGFloat) {
-//var cpvatr_fwmuscdg: Int {
-//    return 72
-//}
-////        let insets = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
-////        contentCollectionView.contentInset = insets
-////        view.layoutIfNeeded()
-////    }
-////
-////    func keyboardHides() {
-//var cpvatr_eweydsoe: Double {
-//    return 80.6229438873748
-//}
-////        contentCollectionView.contentInset = .zero
-////        view.layoutIfNeeded()
-////    }
-////}
+extension CreateTabViewController_vatr: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    
+    func filteredSkins() -> [SkinCreatedModel_vatr] {
+
+      if let filterText, !filterText.isEmpty {
+   
+            let items = model.getSkins().filter({$0.name.containsCaseInsesetive_vatr(filterText)})
+            
+            // Update empty state
+            collectionPreview.updateEmptyState(isShowed: items.isEmpty, isSearchLabel: true)
+            
+            return items
+        } else {
+            collectionPreview.updateEmptyState(isShowed: false, isSearchLabel: true)
+            return model.getSkins()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.item == 0 {
+            if state == .skin{
+                model.selectedSkinIndex = indexPath.item - 1
+                
+                let vc = SkinEditorVC()
+                vc.model = model
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else {
+                let nextVC = AddonCategoryOptionsViewController_vatr()
+                navigationController?.pushViewController(nextVC, animated: true)
+            }
+        }else {
+            if state == .addon {
+                let savedAddon = filteredAddon()[indexPath.item - 1]
+                modelAddon.updateRecentForAddon_vatr(savedAddon: savedAddon) // ????
+                
+                DispatchQueue.global(qos: .background).async {
+                    let fileManager = FileManager.default
+                    let file = savedAddon.file
+                    let fileUrl = fileManager.documentDirectory.appendingPathComponent(savedAddon.file)
+                    if file.isEmpty == false, fileManager.fileExists(atPath: fileUrl.path) {
+                        let _ = fileManager.secureSafeCopyItem_vatr(at: fileUrl, to: fileManager.cachesMCAddonDirectory.appendingPathComponent(fileUrl.lastPathComponent))
+                    }
+                    
+                }
+
+                print("DID SELECT")
+                updatePreview(for: savedAddon)
+                
+            }
+            }
+                
+        }
+    
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if state == .skin {
+            return model.getSkins().count + 1
+        }else {
+            return filteredAddon().count + 1
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewSkinCreatorCell", for: indexPath) as? NewSkinCreatorCell else {return UICollectionViewCell()}
+        if state == .skin{
+            
+            
+            cell.deleteBtn.tag = indexPath.item
+            cell.downloadBtn.tag = indexPath.item
+            cell.deleteBtn.addTarget(self, action: #selector(deleteTapped(_:)), for: .touchUpInside)
+            cell.downloadBtn.addTarget(self, action: #selector(downloadTapped(_:)), for: .touchUpInside)
+            if indexPath.item != 0{
+                
+                cell.whitePImage.isHidden = true
+                cell.imageV.isHidden = false
+                cell.imageV.image = model.getSkins()[indexPath.item - 1 ].preview
+            }else if indexPath.item == 0{
+                cell.deleteBtn.isHidden = true
+                cell.downloadBtn.isHidden = true
+                cell.whitePImage.isHidden = false
+                cell.imageV.isHidden = true
+            }
+            
+        }else {
+            
+//            cell.deleteBtn.tag = indexPath.item
+//            cell.downloadBtn.tag = indexPath.item
+            cell.deleteBtn.addTarget(self, action: #selector(deleteTapped(_:)), for: .touchUpInside)
+            cell.downloadBtn.addTarget(self, action: #selector(downloadTapped(_:)), for: .touchUpInside)
+            if indexPath.item != 0{
+                
+                cell.whitePImage.isHidden = true
+                cell.imageV.isHidden = false
+                if let image = ImageCacheManager_vatr.shared.image_vatr(forKey: modelAddon.createdAddons[indexPath.item - 1].idshka) {
+                    
+                    cell.imageV.image = image
+                    
+                }
+            }else if indexPath.item == 0{
+                cell.deleteBtn.isHidden = true
+                cell.downloadBtn.isHidden = true
+                cell.whitePImage.isHidden = false
+                cell.imageV.isHidden = true
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+  
+     if UIDevice.current.userInterfaceIdiom == .pad{
+            return CGSize(width: (collectionView.frame.width - 24)/3, height: (collectionView.frame.width - 48)/5)
+        }else {
+            return CGSize(width: (collectionView.frame.width - 16)/2, height: (collectionView.frame.height - 36)/3 )
+        }
+        
+        
+      }
+    
+    
+    @objc func deleteTapped(_ sender: UIButton){
+        let point = sender.convert(CGPoint.zero, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else {return}
+        CustomAlert.showAlert(title: "Do you want to delete this skin?") { [self] result in
+            if result{
+                if state == .skin{
+                    model.deleteSkin_vatr(skin: model.getSkins()[sender.tag - 1])
+                    model.updateSkinsArray_err()
+                    collectionView.reloadData()
+                }else{
+                    modelAddon.deleteAddon_vatr(addon: modelAddon.createdAddons[sender.tag - 1])
+                    modelAddon.updateCreatedAddons_vatr()
+                    collectionView.reloadData()
+                }
+            }
+        }
+                  
+    }
+    
+    
+    
+    
+    @objc func downloadTapped(_ sender: UIButton){
+      
+    }
+    
+    private func performSkinDeletion_vatr(at indexPath: IndexPath) {
+
+        // Animate the deletion
+        if let selectedCell = self.collectionView.cellForItem(at: indexPath) {
+            UIView.animate(withDuration: 0.3, animations: {
+                selectedCell.alpha = 0.0
+                selectedCell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            }) { [weak self] _ in
+                guard let self else { return }
+                let skinModel = filteredSkins()[indexPath.item - 1]
+                model.deleteSkin_vatr(skin: skinModel)
+                let futureRow = indexPath.row
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+                    
+                    // Firstly update UI
+                    self?.collectionView.performBatchUpdates({
+                        self?.collectionView.deleteItems(at: [indexPath])
+                    }, completion: { [weak self] finish in
+                        guard let self else { return }
+                        guard finish else { return }
+                        let numberOfCells = self.collectionView.numberOfItems(inSection: 0)
+                        
+                        let newRow = min(futureRow, numberOfCells - 1)
+                        let allItems = self.filteredSkins()
+                        
+                        self.collectionPreview.selectRow(at: .init(row: newRow, section: 0))
+                        
+                        if allItems.indices.contains(newRow - 1) {
+                            self.updatePreview_vatr(for: allItems[newRow - 1])
+                            self.model.selectedSkinIndex = newRow - 1
+                        } else {
+                            self.collectionPreview.updateEmptyState(isShowed: true)
+                            self.model.selectedSkinIndex = 0
+                        }
+                        
+                        
+                    })
+                })
+
+                
+                
+            }
+        }
+    }
+    
+//    private func performAddonDeletion_vatr(at indexPath: IndexPath) {
+//
+//        // Animate the deletion
+//        if let selectedCell = self.collectionView.cellForItem(at: indexPath) {
+//            UIView.animate(withDuration: 0.3, animations: {
+//                selectedCell.alpha = 0.0
+//                selectedCell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+//            }) { [weak self] _ in
+//                guard let self else { return }
+//                let addonModel = filteredAddon()[indexPath.item - 1]
+//                modelAddon.deleteAddon_vatr(addon: addonModel)
+//                let futureRow = indexPath.row
+//                
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+//                    
+//                    // Firstly update UI
+//                    self?.collectionView.performBatchUpdates({
+//                        self?.collectionView.deleteItems(at: [indexPath])
+//                    }, completion: { [weak self] finish in
+//                        guard let self else { return }
+//                        guard finish else { return }
+//                        let numberOfCells = self.collectionView.numberOfItems(inSection: 0)
+//                        
+//                        let newRow = min(futureRow, numberOfCells - 1)
+//                        let allItems = self.filteredAddon()
+//                        
+//                        self.collectionPreview.selectRow(at: .init(row: newRow, section: 0))
+//                        
+//                        if allItems.indices.contains(newRow - 1) {
+//                            self.updatePreview(for: allItems[newRow - 1])
+//                            self.modelAddon.selectedAddon = allItems[newRow - 1]
+//                        } else {
+//                            self.collectionPreview.updateEmptyState(isShowed: true)
+//                            self.modelAddon.selectedAddon = nil
+//                        }
+//                        
+//                        
+//                    })
+//                })
+//
+//                
+//                
+//            }
+//        }
+//    }
+    
+    private func updatePreview_vatr(for skin: SkinCreatedModel_vatr) {
+        collectionPreview.updatePreview_vatr(title: skin.name, image: skin.preview)
+    }
+    
+    
+    
+}

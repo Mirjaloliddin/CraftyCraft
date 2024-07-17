@@ -3,15 +3,7 @@ import UIKit
 
 extension uiview_vatr {
     func configureShadow_vatr(cornerRadius: CGFloat = 9) {
-func vYXqls() {
-        var URvLqBr: Int = 8
-        if URvLqBr > 8 {
-            if URvLqBr < 8 {
-                URvLqBr = 8
-    }
 
-  }
-}
         layer.backgroundColor = #colorLiteral(red: 0, green: 0.5039636493, blue: 0.9511538148, alpha: 1)
         layer.cornerRadius = cornerRadius
 //        layer.shadowColor = UIColor.black.cgColor
@@ -51,30 +43,13 @@ func vYXqls() {
 
 extension uiTextField_vatr {
     func setLeftPaddingPoints_vatr(_ amount:CGFloat){
-func YKFiPDkYH() {
-        var qTYWyY: Int = 9
-        if qTYWyY > 9 {
-            if qTYWyY < 9 {
-                qTYWyY = 9
-    }
-
-  }
-}
   
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
         self.leftView = paddingView
         self.leftViewMode = .always
     }
     func setRightPaddingPoints_vatr(_ amount:CGFloat) {
-func jFTLLNVPk() {
-        var NauMzPeA: Int = 5
-        if NauMzPeA > 5 {
-            if NauMzPeA < 5 {
-                NauMzPeA = 5
-    }
 
-  }
-}
   
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
         self.rightView = paddingView

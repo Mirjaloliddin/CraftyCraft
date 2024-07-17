@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Kufam-Bold.ttf">
+            <string>Kufam-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ColorPickerViewController_vatr" customModule="Summer_Time_16" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="Kx8-TC-Lk0" id="MIg-UI-rR8"/>
+                <outlet property="colorButton" destination="Gq3-0r-dM5" id="UIl-io-pco"/>
+                <outlet property="colorSlider" destination="b1w-FG-3Pz" id="vuE-bu-sdk"/>
+                <outlet property="okButton" destination="sZ9-rc-BLA" id="c27-m3-Fgp"/>
+                <outlet property="pikkoView" destination="Gqj-mC-Dig" id="E0S-Y7-Mkg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kx8-TC-Lk0" userLabel="Background View">
+                    <rect key="frame" x="0.0" y="961" width="1024" height="405"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="FGw-8T-v09">
+                            <rect key="frame" x="16" y="16" width="992" height="349"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peV-55-NDr">
+                                    <rect key="frame" x="0.0" y="0.0" width="992" height="34"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="254" horizontalCompressionResistancePriority="754" verticalCompressionResistancePriority="754" text="SELECT COLOR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZ3-g7-2xt">
+                                            <rect key="frame" x="414" y="2.5" width="164.5" height="29"/>
+                                            <fontDescription key="fontDescription" name="Kufam-Bold" family="Kufam" pointSize="22"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="yZ3-g7-2xt" firstAttribute="centerX" secondItem="peV-55-NDr" secondAttribute="centerX" id="Whg-NK-WdT"/>
+                                        <constraint firstAttribute="height" constant="34" id="azK-dr-hRE"/>
+                                        <constraint firstItem="yZ3-g7-2xt" firstAttribute="centerY" secondItem="peV-55-NDr" secondAttribute="centerY" id="gNW-AI-LHo"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="b1w-FG-3Pz" customClass="RSColourSlider_vatr" customModule="Summer_Time_16" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="51" width="992" height="30"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="HLl-yt-52U">
+                                            <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                        </constraint>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqj-mC-Dig" customClass="Pikko_vatr" customModule="Summer_Time_16" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="98" width="992" height="160"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="160" id="PvY-x1-eVU"/>
+                                    </constraints>
+                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="253" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="753" distribution="fillEqually" alignment="bottom" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="rql-Lo-1Aj">
+                                    <rect key="frame" x="0.0" y="275" width="992" height="74"/>
+                                    <subviews>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gq3-0r-dM5">
+                                            <rect key="frame" x="0.0" y="24" width="490" height="50"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="43D-7Z-aWj"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Color">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZ9-rc-BLA">
+                                            <rect key="frame" x="502" y="24" width="490" height="50"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="x4N-D9-nkk"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Ok">
+                                                <color key="titleColor" name="#0A68EF"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onOkButtonTapped_vatr:" destination="-1" eventType="touchUpInside" id="FYh-h9-sXU"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="74" id="zmT-bp-8v1"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="FGw-8T-v09" firstAttribute="top" secondItem="Kx8-TC-Lk0" secondAttribute="top" constant="16" id="TgA-mR-nap"/>
+                        <constraint firstAttribute="trailing" secondItem="FGw-8T-v09" secondAttribute="trailing" constant="16" id="jTv-OD-pyS"/>
+                        <constraint firstAttribute="bottom" secondItem="FGw-8T-v09" secondAttribute="bottom" constant="40" id="oz2-Ul-nYe"/>
+                        <constraint firstItem="FGw-8T-v09" firstAttribute="leading" secondItem="Kx8-TC-Lk0" secondAttribute="leading" constant="16" id="xew-od-oTl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Kx8-TC-Lk0" secondAttribute="trailing" id="Ipb-Hy-fGl"/>
+                <constraint firstItem="Kx8-TC-Lk0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bqs-04-FC7"/>
+                <constraint firstItem="Kx8-TC-Lk0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jUr-fB-MBE"/>
+                <constraint firstAttribute="bottom" secondItem="Kx8-TC-Lk0" secondAttribute="bottom" id="tvn-hc-YQk"/>
+            </constraints>
+            <point key="canvasLocation" x="6.8702290076335872" y="20.422535211267608"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="#0A68EF">
+            <color red="0.039215686274509803" green="0.40784313725490196" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

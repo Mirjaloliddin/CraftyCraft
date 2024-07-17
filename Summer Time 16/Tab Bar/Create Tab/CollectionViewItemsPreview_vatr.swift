@@ -21,19 +21,7 @@ final class CollectionViewItemsPreview_vatr: UIView {
     
     
     override func awakeFromNib() {
-        var cpvatr_pfdcoahl: Int {
-            return 53
-        }
-        func hpfcukK() {
-            var PWCYaw: Int = 10
-            if PWCYaw > 10 {
-                if PWCYaw < 10 {
-                    PWCYaw = 10
-                }
-                
-            }
-        }
-        
+       
         super.awakeFromNib()
         
         emptyLabel.isHidden = true
@@ -43,24 +31,13 @@ final class CollectionViewItemsPreview_vatr: UIView {
         viewPreviews.backgroundColor = UIColor(red: 1, green: 0.965, blue: 0.925, alpha: 1)
         
         
+        
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewDidTapped))
         imageView.addGestureRecognizer(tapGesture)
     }
     
     override func layoutSubviews() {
-        var cpvatr_twzehcmi: Double {
-            return 4.571901943514367
-        }
-        func MaPMkBpu() {
-            var OoxPoXTFM: Int = 2
-            if OoxPoXTFM > 2 {
-                if OoxPoXTFM < 2 {
-                    OoxPoXTFM = 2
-                }
-                
-            }
-        }
-        
         super.layoutSubviews()
         viewPreviews.configureShadow_vatr()
         
@@ -68,55 +45,19 @@ final class CollectionViewItemsPreview_vatr: UIView {
     
     @objc
     private func imageViewDidTapped() {
-        var cpvatr_bkqapdoj: Int {
-            return 90
-        }
-        func XjzGyMY() {
-            var zkZCIEDvkK: Int = 5
-            if zkZCIEDvkK > 5 {
-                if zkZCIEDvkK < 5 {
-                    zkZCIEDvkK = 5
-                }
-                
-            }
-        }
         
         onImageViewTapAction?()
     }
     
     func setCrateEmptyTitle(_ title: String) {
-        var cpvatr_sbmbwxhm: Int {
-            return 80
-        }
-        func iQkvclM() {
-            var PiSfOWhG: Int = 8
-            if PiSfOWhG > 8 {
-                if PiSfOWhG < 8 {
-                    PiSfOWhG = 8
-                }
-                
-            }
-        }
-        
+       
         emptyLabel.text = title
         emptyLabel.font = UIFont.kufamFont(.bold, size: 22)
         emptyLabel.textColor = .black
     }
     
     func updatePreview_vatr(title: String, image: UIImage?) {
-        var cpvatr_jipmhuws: Int {
-            return 55
-        }
-        func mLjKBHE() {
-            var kztWDSakAF: Int = 3
-            if kztWDSakAF > 3 {
-                if kztWDSakAF < 3 {
-                    kztWDSakAF = 3
-                }
-                
-            }
-        }
-        
+       
         imageView.image = image
         titleLabel.text = title
     }

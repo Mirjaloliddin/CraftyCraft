@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Icons editor_wewe.png",
+      "filename" : "Icons editor.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Icons editor@2x_wewe.png",
+      "filename" : "Icons editor@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Icons editor@3x_wewe.png",
+      "filename" : "Icons editor@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

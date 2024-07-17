@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,6 +29,10 @@
             <rect key="frame" x="0.0" y="0.0" width="295" height="302"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGV-hf-v3b" customClass="GradientButton" customModule="Summer_Time_16" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="295" height="302"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDON READY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMD-rZ-SPL">
                     <rect key="frame" x="65.000000000000014" y="20" width="165.33333333333337" height="26"/>
                     <constraints>
@@ -93,13 +97,13 @@
                     </constraints>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on &quot;Install Addon&quot; and select Minecraft or opt for manual installation to directly install into Minecraft worlds." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-6b-S9J">
-                    <rect key="frame" x="20" y="218" width="255" height="42"/>
-                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                    <rect key="frame" x="20" y="218" width="255" height="74.666666666666686"/>
+                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ViA-Hb-1BK">
-                    <rect key="frame" x="243" y="17" width="32" height="32"/>
+                    <rect key="frame" x="250" y="20.666666666666671" width="25" height="25"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" backgroundImage="whitex"/>
@@ -109,17 +113,21 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="tintColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="La0-3z-ew9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="29A-sF-Q3J"/>
                 <constraint firstItem="La0-3z-ew9" firstAttribute="top" secondItem="VMD-rZ-SPL" secondAttribute="bottom" constant="12" id="2ME-fh-3C0"/>
+                <constraint firstItem="jGV-hf-v3b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="35D-ML-aU7"/>
                 <constraint firstItem="YcH-6b-S9J" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Jxt-R9-pDU"/>
                 <constraint firstItem="ViA-Hb-1BK" firstAttribute="centerY" secondItem="VMD-rZ-SPL" secondAttribute="centerY" id="Pfo-4c-P5E"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="La0-3z-ew9" secondAttribute="trailing" constant="20" id="Qcs-Su-WPF"/>
+                <constraint firstItem="jGV-hf-v3b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="RVr-5y-7Rd"/>
                 <constraint firstItem="YcH-6b-S9J" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="TWQ-nb-daA"/>
                 <constraint firstItem="VMD-rZ-SPL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="U7i-lx-i0K"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YcH-6b-S9J" secondAttribute="trailing" constant="20" id="Vtk-Id-EXA"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ViA-Hb-1BK" secondAttribute="trailing" constant="20" id="W4M-TO-icC"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jGV-hf-v3b" secondAttribute="trailing" id="c8x-Se-qDZ"/>
+                <constraint firstAttribute="bottom" secondItem="jGV-hf-v3b" secondAttribute="bottom" id="kic-st-JlM"/>
                 <constraint firstItem="YcH-6b-S9J" firstAttribute="top" secondItem="La0-3z-ew9" secondAttribute="bottom" constant="8" id="ln1-7L-THz"/>
                 <constraint firstItem="VMD-rZ-SPL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="uns-ee-SQ0"/>
             </constraints>
@@ -130,9 +138,9 @@
     <resources>
         <image name="install_addon_icon_vatr" width="32.333332061767578" height="32.333332061767578"/>
         <image name="manual_add_addon_icon_vatr" width="32.333332061767578" height="32.333332061767578"/>
-        <image name="whitex" width="32" height="32"/>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="whitex" width="25" height="25"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

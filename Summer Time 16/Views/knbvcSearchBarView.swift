@@ -11,7 +11,13 @@ class SearchBarView_vatr: UIView, UITextFieldDelegate {
     
     var placeholderTextColor = #colorLiteral(red: 0.634565711, green: 0.7767372727, blue: 0.9022807479, alpha: 1)
     
-    var containerView: UIView = GradientView_Wert()
+    var containerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(named: "#0A68EF")
+        v.clipsToBounds = true
+        v.layer.cornerRadius = 12
+        return v
+    }()
     
     private lazy var resetButton: UIButton = {
         let button = UIButton()
@@ -175,23 +181,34 @@ class SearchBarView_vatr: UIView, UITextFieldDelegate {
             make.centerY.equalToSuperview()
         }
         
+//        resetButton.snp.makeConstraints { make in
+//            make.right.equalTo(containerView.snp.left).offset(20)
+//            make.height.width.equalTo(18)
+//            make.centerY.equalToSuperview()
+//        }
+//        
+//        searchTextField.snp.makeConstraints { make in
+//            make.height.equalTo(40)
+//            make.left.equalTo(2)
+//            make.right.equalTo(resetButton.snp_leftMargin).offset(6)
+//            make.top.bottom.equalToSuperview().inset(2)
+//        }
+        
         searchTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         searchTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2).isActive = true
-        searchTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -2).isActive = true
+        searchTextField.trailingAnchor.constraint(equalTo: resetButton.trailingAnchor, constant: -2).isActive = true
         searchTextField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2).isActive = true
         searchTextField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -2).isActive = true
         
 //        searchTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         
-        resetButton.trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: -12).isActive = true
+        resetButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12).isActive = true
         resetButton.topAnchor.constraint(equalTo: searchTextField.topAnchor, constant: 4).isActive = true
         resetButton.bottomAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 4).isActive = true
         resetButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
 
     }
-    var cpvatr_aihnpspk: Double {
-        return 52.37425636393376
-    }
+   
 }
 //import UIKit
 
